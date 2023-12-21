@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="row d-flex justify-content-center">
-                <div class="col-md-6 col-xl-6">
+                <div class="col-md-6 col-lg-7 col-xl-6">
                     <div>
                         <form class="p-3 p-xl-4" method="post" data-bs-theme="light">
                             <fieldset>
@@ -50,9 +50,10 @@
                             <div class="mb-3">
                                 <legend>Applicant's Details</legend><input class="shadow form-control" type="text" id="name-1" name="name" placeholder="Name">
                                 <div class="mb-3"></div><select class="shadow form-select" name="position">
-                                    <option value="">Staff or Student</option>
-                                    <option value="staff">Staff</option>
-                                    <option value="student">Student</option>
+                                    <optgroup label="Staff or Student">
+                                        <option value="staff">Staff</option>
+                                        <option value="student">Student</option>
+                                    </optgroup>
                                 </select>
                                 <div class="mb-3"></div><input class="shadow form-control" type="text" name="Division" placeholder="Division (Faculty)">
                                 <div class="shadow mb-3"></div><input class="shadow form-control" type="text" name="id" placeholder="Staff / Student ID">
@@ -77,9 +78,17 @@
                                 <div class="shadow mb-3"></div><input class="shadow form-control" type="text" name="positionOfficer" placeholder="Position (eg: lecturer)">
                                 <div class="shadow mb-3"></div><input class="shadow form-control" type="text" name="telNoOfficer" placeholder="Telephone No.">
                             </div>
-                            <div class="mb-3"><input class="shadow form-control" type="email" id="email-1" name="email" placeholder="Email"></div>
-                            <div class="mb-3"><textarea class="shadow form-control" id="message-1" name="message" rows="6" placeholder="Message"></textarea></div>
-                            <div><button class="btn btn-primary shadow d-block w-100" type="submit">Send </button></div>
+                            <div class="mb-3">
+                                <legend>Passenger List</legend><input class="shadow form-control" type="text" id="name-4" name="namePassenger" placeholder="Name">
+                                <div class="mb-3"></div><input class="shadow form-control" type="text" name="positionPassenger" placeholder="Position (eg: lecturer)">
+                                <div class="shadow mb-3"></div><input class="shadow form-control" type="text" name="icNumPassenger" placeholder="IC No.">
+                                <div class="shadow mb-3"></div><input class="shadow form-control" type="text" name="idPassenger" placeholder="Student / Staff ID">
+                                <div class="shadow mb-3"></div><button class="btn btn-primary shadow d-block w-100" type="button">Add Passenger</button>
+                            </div>
+                            <div><button class="btn btn-primary shadow d-block w-100" type="submit">Submit</button>
+                                <div class="shadow mb-3"></div>
+                            </div>
+                            <div><button class="btn btn-primary shadow d-block w-100" type="reset">Reset</button></div>
                         </form>
                     </div>
                 </div>
