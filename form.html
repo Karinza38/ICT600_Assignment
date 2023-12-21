@@ -22,9 +22,9 @@
         </div>
     </nav>
     <section class="py-5 mt-5">
-        <div class="container py-5">
+        <div class="container-xxl py-5"> <!-- Update the container class -->
             <div class="row">
-                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <div class="col-md-12 col-lg-10 col-xl-8 text-center mx-auto"> <!-- Adjusted grid classes -->
                     <h2 class="display-6 fw-bold mb-4">University <span class="underline">Vehicle</span>&nbsp; Application Form</h2>
                     <p class="text-muted">Fill in the details and make sure it is correct.</p>
                 </div>
@@ -32,23 +32,23 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-md-6 col-lg-7 col-xl-6">
                     <div>
-                        <form class="p-3 p-xl-4" method="post" data-bs-theme="light">
+                        <form class="p-3 p-xl-4" method="post" data-bs-theme="light" onsubmit="return validate(event, this);">
                             <fieldset>
                                 <legend>Type of Vehicle</legend>
-                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="formCheck-2" name="vehicle" value="car"><label class="form-check-label" for="formCheck-2">Car</label></div>
-                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="formCheck-1" name="vehicle" value="bus"><label class="form-check-label" for="formCheck-1">Bus</label></div>
-                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="formCheck-6" name="vehicle" value="mpv"><label class="form-check-label" for="formCheck-6">MPV</label></div>
-                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="formCheck-5" name="vehicle" value="van"><label class="form-check-label" for="formCheck-5">Van</label></div>
-                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="formCheck-4" name="vehicle" value="4wd"><label class="form-check-label" for="formCheck-4">4WD</label></div>
-                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="formCheck-3" name="vehicle" value="lorry"><label class="form-check-label" for="formCheck-3">Lorry</label></div>
+                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="car" name="vehicle" value="car"><label class="form-check-label" for="car">Car</label></div>
+                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="bus" name="vehicle" value="bus"><label class="form-check-label" for="bus">Bus</label></div>
+                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="mpv" name="vehicle" value="mpv"><label class="form-check-label" for="mpv">MPV</label></div>
+                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="van" name="vehicle" value="van"><label class="form-check-label" for="van">Van</label></div>
+                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="fourwd" name="vehicle" value="4wd"><label class="form-check-label" for="fourwd">4WD</label></div>
+                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="lorry" name="vehicle" value="lorry"><label class="form-check-label" for="lorry">Lorry</label></div>
                             </fieldset>
                             <fieldset>
                                 <legend>Vehicle Requirement</legend>
-                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="formCheck-7" name="vehicleReq" value="dropAndPickup"><label class="form-check-label" for="formCheck-7">Drop Off and Pick Up</label></div>
-                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="formCheck-8" name="vehicleReq" value="throughout"><label class="form-check-label" for="formCheck-8">Used Throughout Program</label></div>
+                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="dropOffandPickUp" name="vehicleReq" value="dropAndPickup"><label class="form-check-label" for="dropOffandPickUp">Drop Off and Pick Up</label></div>
+                                <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="throughout" name="vehicleReq" value="throughout"><label class="form-check-label" for="throughout">Used Throughout Program</label></div>
                             </fieldset>
                             <div class="mb-3">
-                                <legend>Applicant's Details</legend><input class="shadow form-control" type="text" id="name-1" name="name" placeholder="Name">
+                                <legend>Applicant's Details</legend><input class="shadow form-control" type="text" id="applicantName" name="applicantName" placeholder="Name">
                                 <div class="mb-3"></div><select class="shadow form-select" name="position">
                                     <optgroup label="Staff or Student">
                                         <option value="staff">Staff</option>
@@ -59,12 +59,12 @@
                                 <div class="shadow mb-3"></div><input class="shadow form-control" type="text" name="id" placeholder="Staff / Student ID">
                             </div>
                             <div class="mb-3">
-                                <legend>User / Escort Officer</legend><input class="shadow form-control" type="text" id="name-2" name="nameEscort" placeholder="Name">
+                                <legend>User / Escort Officer</legend><input class="shadow form-control" type="text" id="escortName" name="escortName" placeholder="Name">
                                 <div class="mb-3"></div><input class="shadow form-control" type="text" name="positionOfficer" placeholder="Position (eg: lecturer)">
                                 <div class="shadow mb-3"></div><input class="shadow form-control" type="text" name="telNoOfficer" placeholder="Telephone No.">
                             </div>
                             <div class="mb-3">
-                                <legend>Usage Details</legend><input class="shadow form-control" type="text" id="name-3" name="purpose" placeholder="Purpose">
+                                <legend>Usage Details</legend><input class="shadow form-control" type="text" id="purpose" name="purpose" placeholder="Purpose">
                                 <div class="mb-3"></div><input class="form-control" type="number" name="totalPassenger" placeholder="Total Passenger" max="44" min="0">
                                 <div class="shadow mb-3"></div><input class="shadow form-control" type="text" name="destination" placeholder="Destination">
                                 <div class="shadow mb-3"></div><input class="shadow form-control" type="text" name="pickupPoint" placeholder="Pick Up Point">
@@ -79,30 +79,35 @@
                             <div class="mb-3">
                                 <legend>Passenger List</legend>
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table id="passengerTable" class="table">
                                         <thead>
                                             <tr>
-                                                <th></th>
-                                                <th></th>
+                                                <th>Name</th>
+                                                <th>IC No.</th>
+                                                <th>Position</th>
+                                                <th>ID</th>
+                                                <th>Action</th> <!-- New column for the delete button -->
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><input class="shadow form-control" type="text" id="name-4" name="namePassenger" placeholder="Name"></td>
-                                                <td><input class="shadow form-control" type="text" name="icNumPassenger" placeholder="IC No."></td>
+                                        <tbody id="passengerTableBody"> <!-- Give an ID to the table body for easier reference -->
+                                            <tr id="row0"> <!-- Adding an ID to the initial row for identification -->
+                                                <td><input class="shadow form-control" type="text" name="namePassenger[]" placeholder="Name"></td>
+                                                <td><input class="shadow form-control" type="text" name="icNumPassenger[]" placeholder="IC No."></td>
+                                                <td><input class="shadow form-control" type="text" name="positionPassenger[]" placeholder="Position (eg: lecturer)"></td>
+                                                <td><input class="shadow form-control" type="text" name="idPassenger[]" placeholder="ID"></td>
+                                                <td><button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button></td> <!-- Delete button column -->
                                             </tr>
-                                            <tr>
-                                                <td><input class="shadow form-control" type="text" name="positionPassenger" placeholder="Position (eg: lecturer)"></td>
-                                                <td><input class="shadow form-control" type="text" name="idPassenger" placeholder="Student / Staff ID"></td>
-                                            </tr>
+                                        </tbody>
+                                        
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="mb-3"></div>
-                                <div class="shadow mb-3"></div>
-                                <div class="shadow mb-3"></div>
-                                <div class="shadow mb-3"></div><button class="btn btn-primary shadow d-block w-100" type="button">Add Passenger</button>
+                                <div class="mb-3">
+                                    <!-- Add Row button -->
+                                    <a href="javascript:void(0);" class="add-row-button" onclick="addRow('passengerTable')">Add Row</a>
+                                </div>
                             </div>
+                            
                             <div><button class="btn btn-primary shadow d-block w-100" type="submit">Submit</button>
                                 <div class="shadow mb-3"></div>
                             </div>
@@ -145,5 +150,284 @@
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/startup-modern.js"></script>
 </body>
+
+<script>
+    function addRow(tableId) {
+        var table = document.getElementById(tableId);
+        var rowCount = table.rows.length;
+
+        var row = table.insertRow(rowCount);
+
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4); // New cell for the delete button
+
+        cell1.innerHTML = "<input class='shadow form-control' type='text' id='" + tableId + "PassName" + rowCount + "' name='" + tableId + "PassName' placeholder='Name'>";
+        cell2.innerHTML = "<input class='shadow form-control' type='text' id='" + tableId + "PassIC" + rowCount + "' name='" + tableId + "PassIC' placeholder='IC No.'>";
+        cell3.innerHTML = "<input class='shadow form-control' type='text' id='" + tableId + "PassPosition" + rowCount + "' name='" + tableId + "PassPosition' placeholder='Position'>";
+        cell4.innerHTML = "<input class='shadow form-control' type='text' id='" + tableId + "PassID" + rowCount + "' name='" + tableId + "PassID' placeholder='Student / Staff ID'>";
+        cell5.innerHTML = "<button class='btn btn-danger btn-sm' onclick='deleteRow(this)'>Delete</button>"; // Delete button
+
+        // Set a unique ID for each row for deletion identification
+        row.id = "row" + rowCount;
+    }
+
+    function deleteRow(row) {
+        var rowToDelete = row.parentNode.parentNode;
+        rowToDelete.parentNode.removeChild(rowToDelete);
+    }
+
+    function validate(event, form) {
+        event.preventDefault();
+
+        var fail = "";
+        fail += validateVehicle();
+        fail += validateVehicleReq();
+
+        fail += validateAppName(form.applicantName.value);
+        fail += validatePosition();
+        fail += validateDivision(form.Division.value);
+        fail += validateID(form.id.value);
+        
+        fail += validateEscortName(form.escortName.value);
+        fail += validatePositionOfficer(form.positionOfficer.value);
+        fail += validateTelNoOfficer(form.telNoOfficer.value);
+        
+        fail += validatePurpose(form.purpose.value);
+        fail += validateTotalPassenger(form.totalPassenger.value);
+        fail += validateDestination(form.destination.value);
+        fail += validatePickupPoint(form.pickupPoint.value);
+        fail += validateReturnDestination(form.returnDestination.value);
+
+        fail += validateNotEmpty(form.departDate.value, 'departure date');
+        fail += validateNotEmpty(form.departTime.value, 'departure time');
+        fail += validateNotEmpty(form.returnDate.value, 'return date');
+        fail += validateNotEmpty(form.returnTime.value, 'return time');
+
+        fail += validateDepartureDate(form.departDate.value);
+        fail += validateReturnDate(form.departDate.value, form.returnDate.value);
+        fail += validateReturnTime(form.departTime.value, form.returnTime.value);
+
+        fail += validatePassengerTable();
+        
+        
+        // Add other validations as needed
+
+        if (fail === "" || fail.trim() === "") {
+            // If no errors, submit the form
+            alert("Form has been submitted successfully.");
+            form.submit();
+        } else {
+            // If errors exist, display the error messages
+            alert("Form has not been submitted. Please check the following: \n\n" + fail);
+            return false;
+        }
+    }
+
+function validateVehicle() {
+    var vehicles = document.getElementsByName('vehicle');
+    var checked = false;
+    
+    for (var i = 0; i < vehicles.length; i++) {
+        if (vehicles[i].checked) {
+            checked = true;
+            break;
+        }
+    }
+    
+    if (!checked) {
+        return "Please select a vehicle\n";
+    }
+    
+    return "";
+}
+
+function validateVehicleReq() {
+    var vehicleReqs = document.getElementsByName('vehicleReq');
+    var checked = false;
+    
+    for (var i = 0; i < vehicleReqs.length; i++) {
+        if (vehicleReqs[i].checked) {
+            checked = true;
+            break;
+        }
+    }
+    
+    if (!checked) {
+        return "Please select a vehicle requirement\n";
+    }
+    
+    return "";
+}
+
+function validatePosition() {
+    var position = document.getElementsByName('position')[0].value;
+
+    if (position === "") {
+        return "Please select Staff or Student\n";
+    }
+
+    return "";
+}
+
+
+function validateAppName(field) {
+    if (field == "") {
+        function validateAppName(field) {
+            if (field == "") {
+                return "Please fill applicant's name \n";
+            }
+            return "";
+        }
+    }
+    return "";
+}
+
+function validateID(field) {
+    if (field == "") {
+        //alert("Sila isi ID Pemohon!");
+        return "Please enter valid ID \n";
+    }
+}
+
+function validateDivision(field) {
+    if (field == "") {
+        return "Please enter division \n";
+    }
+    return "";
+}
+
+function validateTelNoOfficer(field) {
+    if (field.length < 10 || field.length > 15) {
+        return "Invalid Telephone Number \n";
+    }
+    return "";
+}
+
+function validatePositionOfficer(field) {
+    field = field.toUpperCase();
+    if (field == "") {
+        return "Invalid Officer Position \n";
+    }
+}
+
+function validateEscortName(field) {
+    if (field == "") {
+        return "Please enter escort name \n";
+    }
+    return "";
+}
+
+function validateTotalPassenger(totalPassenger) {
+    if (totalPassenger === "" || isNaN(totalPassenger) || totalPassenger <= 0 || totalPassenger > 44) {
+        return "Please enter a valid number of passengers (1 to 44)\n";
+    }
+
+    return "";
+}
+
+function validateDestination(destination) {
+    if (destination.trim() === "") {
+        return "Please enter a destination\n";
+    }
+
+    return "";
+}
+
+
+function validatePickupPoint(field) {
+    if (field == "") {
+        return "Please enter pickup point \n";
+    }
+    return "";
+}
+
+function validateReturnDestination(field) {
+    if (field == "") {
+        return "Please enter return destination \n";
+    }
+    return "";
+}
+
+function validatePurpose(field) {
+    if (field == "") {
+        return "Please enter purpose \n";
+    }
+    return "";
+}
+
+function validateReturnTime(departTime, returnTime) {
+    if (departTime >= returnTime) {
+        return 'Return time must be after the departure time\n';
+    }
+
+    return '';
+}
+
+function validateReturnDate(departDate, returnDate) {
+    let depart = new Date(departDate);
+    let ret = new Date(returnDate);
+
+    if (ret < depart) {
+        return 'Return date must be the same as or after the departure date\n';
+    }
+
+    return '';
+}
+
+function validateDepartureDate(departDate) {
+    let currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + 7); // 7 days after current date
+
+    let chosenDate = new Date(departDate);
+
+    if (chosenDate < currentDate) {
+        return 'Departure date must be at least 7 days after the current date\n';
+    }
+
+    return '';
+}
+
+function validateNotEmpty(value, fieldName) {
+    if (!value.trim()) {
+        return `Please enter ${fieldName}\n`;
+    }
+    return '';
+}
+
+function validatePassengerTable() {
+    const table = document.getElementById('passengerTableBody');
+    const rows = table.getElementsByTagName('tr');
+
+    let fail = '';
+
+    if (rows.length === 0) {
+        fail += 'Please add at least one passenger.\n';
+    } else {
+        for (let i = 0; i < rows.length; i++) {
+            const inputs = rows[i].getElementsByTagName('input');
+
+            const name = inputs[0].value.trim();
+            const icNum = inputs[1].value.trim();
+            const position = inputs[2].value.trim();
+            const id = inputs[3].value.trim();
+
+            if (name === '' || icNum === '' || position === '' || id === '') {
+                fail += 'All fields in the passenger table are required.\n';
+            }
+
+            if (icNum.length < 12) {
+                fail += 'IC Number for passenger ' + (i + 1) + ' should be at least 12 characters.\n';
+            }
+        }
+    }
+
+    return fail;
+}
+
+
+</script>
 
 </html>
