@@ -7,6 +7,29 @@
     <title>Contacts - Brand</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <style>
+        /* Style the modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,6 +56,7 @@
                 <div class="col-md-6 col-lg-7 col-xl-6">
                     <div>
                         <form class="p-3 p-xl-4" method="post" data-bs-theme="light" onsubmit="return validate(event, this);">
+                            <!-- Form content -->
                             <fieldset>
                                 <legend>Type of Vehicle</legend>
                                 <div class="form-check form-check-inline"><input class="form-check-input" type="radio" id="car" name="vehicle" value="car"><label class="form-check-label" for="car">Car</label></div>
@@ -108,14 +132,28 @@
                                 </div>
                             </div>
                             
-                            <div><button class="btn btn-primary shadow d-block w-100" type="submit">Submit</button>
-                                <div class="shadow mb-3"></div>
+                            <div>
+                                <!-- Add a button to trigger the displayFormValues function -->
+                                <button type="submit" onclick="validate(event, this.form); printFormData();">Submit</button>
+
+                                <!-- <button class="btn btn-primary shadow d-block w-100" type="submit">Submit</button>
+                                <div class="shadow mb-3"></div> -->
                             </div>
+        
                             <div><button class="btn btn-primary shadow d-block w-100" type="reset">Reset</button></div>
+                            
+                            <!-- Add this div in your HTML body -->
+                            <div id="formValuesDisplay"></div>
+
                         </form>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+    <section id="formValuesDisplay" class="py-5 mt-5">
+        <div class="container-xxl">
+            <!-- Form values will be displayed here -->
         </div>
     </section>
     <footer>
@@ -179,6 +217,34 @@
         rowToDelete.parentNode.removeChild(rowToDelete);
     }
 
+    function getPassengerDetails() {
+    var table = document.getElementById('passengerTableBody');
+    var passengers = [];
+
+    for (var i = 0; i < table.rows.length; i++) {
+        var passenger = {
+            'Name': table.rows[i].cells[0].querySelector('input').value,
+            'IC No.': table.rows[i].cells[1].querySelector('input').value,
+            'Position': table.rows[i].cells[2].querySelector('input').value,
+            'ID': table.rows[i].cells[3].querySelector('input').value
+        };
+        passengers.push(passenger);
+    }
+
+    return passengers;
+}
+
+    function getCheckedValue(radioGroupName) {
+    var radios = document.getElementsByName(radioGroupName);
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            return radios[i].value;
+        }
+    }
+    return '';
+}
+
+
     function validate(event, form) {
         event.preventDefault();
 
@@ -210,20 +276,51 @@
         fail += validateReturnDate(form.departDate.value, form.returnDate.value);
         fail += validateReturnTime(form.departTime.value, form.returnTime.value);
 
-        fail += validatePassengerTable();
+        // fail += validatePassengerTable();
         
         
         // Add other validations as needed
 
+        // if (fail === "" || fail.trim() === "") {
+        //     // If no errors, display the form values
+        //     displayFormValues(form);
+        //     // If no errors, submit the form
+        //     alert("Form has been submitted successfully.");
+        //     form.submit();
+        // } else {
+        //     // If errors exist, display the error messages
+        //     alert("Form has not been submitted. Please check the following: \n\n" + fail);
+        //     return false;
+        // }
+
+        // if (fail === "" || fail.trim() === "") {
+        //     // Log to console to check if it reaches here
+        //     console.log("Validations passed, about to display form values");
+        //     displayFormValues(form);
+        //     alert("Form has been submitted successfully.");
+        //     return true; // Ensure it returns true after successful validation
+        // } else {
+        //     // Log to console to check if it enters this block when there are validation errors
+        //     console.log("Validation failed, errors present");
+        //     alert("Form has not been submitted. Please check the following: \n\n" + fail);
+        //     return false;
+        // }
+
+        // After all validations pass, inside the 'if' block where you currently have the success alert
         if (fail === "" || fail.trim() === "") {
-            // If no errors, submit the form
+            // Log to console to check if it reaches here
+            console.log("Validations passed, about to display form values");
+            displayFormValues(form);
             alert("Form has been submitted successfully.");
-            form.submit();
-        } else {
-            // If errors exist, display the error messages
+            return true; // Ensure it returns true after successful validation
+        }
+        else {
+            // Log to console to check if it enters this block when there are validation errors
+            console.log("Validation failed, errors present");
             alert("Form has not been submitted. Please check the following: \n\n" + fail);
             return false;
         }
+
     }
 
 function validateVehicle() {
@@ -274,22 +371,20 @@ function validatePosition() {
 
 
 function validateAppName(field) {
-    if (field == "") {
-        function validateAppName(field) {
-            if (field == "") {
-                return "Please fill applicant's name \n";
-            }
-            return "";
-        }
+    if (field === "") {
+        return "Please fill in the applicant's name.\n";
     }
     return "";
 }
+
 
 function validateID(field) {
     if (field == "") {
         //alert("Sila isi ID Pemohon!");
         return "Please enter valid ID \n";
     }
+
+    return "";
 }
 
 function validateDivision(field) {
@@ -311,6 +406,8 @@ function validatePositionOfficer(field) {
     if (field == "") {
         return "Invalid Officer Position \n";
     }
+
+    return "";
 }
 
 function validateEscortName(field) {
@@ -360,10 +457,10 @@ function validatePurpose(field) {
 
 function validateReturnTime(departTime, returnTime) {
     if (departTime >= returnTime) {
-        return 'Return time must be after the departure time\n';
+        return "Return time must be after the departure time\n";
     }
 
-    return '';
+    return "";
 }
 
 function validateReturnDate(departDate, returnDate) {
@@ -371,10 +468,10 @@ function validateReturnDate(departDate, returnDate) {
     let ret = new Date(returnDate);
 
     if (ret < depart) {
-        return 'Return date must be the same as or after the departure date\n';
+        return "Return date must be the same as or after the departure date\n";
     }
 
-    return '';
+    return "";
 }
 
 function validateDepartureDate(departDate) {
@@ -392,42 +489,137 @@ function validateDepartureDate(departDate) {
 
 function validateNotEmpty(value, fieldName) {
     if (!value.trim()) {
-        return `Please enter ${fieldName}\n`;
+        return "Please enter ${fieldName}\n";
     }
     return '';
 }
 
-function validatePassengerTable() {
-    const table = document.getElementById('passengerTableBody');
-    const rows = table.getElementsByTagName('tr');
+// function validatePassengerTable() {
+//     const table = document.getElementById('passengerTableBody');
+//     const rows = table.getElementsByTagName('tr');
 
-    let fail = '';
+//     let fail = '';
 
-    if (rows.length === 0) {
-        fail += 'Please add at least one passenger.\n';
-    } else {
-        for (let i = 0; i < rows.length; i++) {
-            const inputs = rows[i].getElementsByTagName('input');
+//     // Check if the first row is empty and there are no subsequent rows
+//     if (rows.length === 1) {
+//         const inputs = rows[0].getElementsByTagName('input');
+//         const name = inputs[0].value.trim();
+//         const icNum = inputs[1].value.trim();
+//         const position = inputs[2].value.trim();
+//         const id = inputs[3].value.trim();
 
-            const name = inputs[0].value.trim();
-            const icNum = inputs[1].value.trim();
-            const position = inputs[2].value.trim();
-            const id = inputs[3].value.trim();
+//         if (name === '' || icNum === '' || position === '' || id === '') {
+//             fail += 'All fields in the passenger table are required.\n';
+//         }
+//     } else if (rows.length > 1) {
+//         for (let i = 0; i < rows.length; i++) {
+//             const inputs = rows[i].getElementsByTagName('input');
 
-            if (name === '' || icNum === '' || position === '' || id === '') {
-                fail += 'All fields in the passenger table are required.\n';
+//             const name = inputs[0].value.trim();
+//             const icNum = inputs[1].value.trim();
+//             const position = inputs[2].value.trim();
+//             const id = inputs[3].value.trim();
+
+//             if (name === '' || icNum === '' || position === '' || id === '') {
+//                 fail += 'All fields in the passenger table are required.\n';
+//             }
+
+//             if (icNum.length < 12) {
+//                 fail += 'IC Number for passenger ' + (i + 1) + ' should be at least 12 characters.\n';
+//             }
+//         }
+//     } else {
+//         fail += 'Please add at least one passenger.\n';
+//     }
+
+//     return fail;
+// }
+
+function displayFormValues(form) {
+    
+
+        var formData = {
+            'Type of Vehicle': getCheckedValue('vehicle'),
+            'Vehicle Requirement': getCheckedValue('vehicleReq'),
+            'Applicant Name': form.applicantName.value,
+            'Position': form.position.value,
+            'Division': form.Division.value,
+            'ID': form.id.value,
+            'Escort Name': form.escortName.value,
+            'Position Officer': form.positionOfficer.value,
+            'Tel. No. Officer': form.telNoOfficer.value,
+            'Purpose': form.purpose.value,
+            'Total Passenger': form.totalPassenger.value,
+            'Destination': form.destination.value,
+            'Pick Up Point': form.pickupPoint.value,
+            'Return Destination': form.returnDestination.value,
+            'Departure Date': form.departDate.value,
+            'Departure Time': form.departTime.value,
+            'Return Date': form.returnDate.value,
+            'Return Time': form.returnTime.value,
+            'Passenger Details': getPassengerDetails()
+            // Add other form values similarly
+        };
+
+        var displayDiv = document.getElementById('formValuesDisplay');
+        displayDiv.innerHTML = ''; // Clear previous content
+
+        for (var key in formData) {
+        if (formData.hasOwnProperty(key)) {
+            var para = document.createElement('p');
+            if (key === 'Passenger Details') {
+                var passengers = formData[key];
+                para.innerHTML = `<strong>${key}:</strong><br>`;
+                passengers.forEach(function (passenger, index) {
+                    para.innerHTML += `<span>Passenger ${index + 1}:</span><br>`;
+                    for (var passengerKey in passenger) {
+                        para.innerHTML += `<span>${passengerKey}:</span> ${passenger[passengerKey]}<br>`;
+                    }
+                });
+            } else {
+                para.innerHTML = `<strong>${key}:</strong> ${formData[key]}`;
             }
-
-            if (icNum.length < 12) {
-                fail += 'IC Number for passenger ' + (i + 1) + ' should be at least 12 characters.\n';
-            }
+            displayDiv.appendChild(para);
         }
     }
+    }
 
-    return fail;
+    function printFormData(form) {
+    var formData = {
+        'Type of Vehicle': getCheckedValue('vehicle'),
+        'Vehicle Requirement': getCheckedValue('vehicleReq'),
+        'Applicant Name': form.applicantName.value,
+        'Position': form.position.value,
+        'Division': form.Division.value,
+        'ID': form.id.value,
+        'Escort Name': form.escortName.value,
+        'Position Officer': form.positionOfficer.value,
+        'Tel. No. Officer': form.telNoOfficer.value,
+        'Purpose': form.purpose.value,
+        'Total Passenger': form.totalPassenger.value,
+        'Destination': form.destination.value,
+        'Pick Up Point': form.pickupPoint.value,
+        'Return Destination': form.returnDestination.value,
+        'Departure Date': form.departDate.value,
+        'Departure Time': form.departTime.value,
+        'Return Date': form.returnDate.value,
+        'Return Time': form.returnTime.value,
+        // Add other form values similarly
+    };
+
+    var displayDiv = document.getElementById('formValuesDisplay');
+    displayDiv.innerHTML = ''; // Clear previous content
+
+    for (var key in formData) {
+        if (formData.hasOwnProperty(key)) {
+            var para = document.createElement('p');
+            para.innerHTML = `<strong>${key}:</strong> ${formData[key]}`;
+            displayDiv.appendChild(para);
+        }
+    }
 }
 
-
 </script>
+
 
 </html>
